@@ -1,23 +1,1134 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #e0e7ff;
+      --secondary: #0f172a;
+      --accent: #0d9488;
+      --accent-light: #ccfbf1;
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.7;
+      color: var(--text-main);
+      background-color: var(--bg-main);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--secondary) 0%, #1e1b4b 100%);
+      color: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 16px 20px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s, border-bottom 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 1024px) {
+      main {
+        grid-template-columns: 3fr 1fr;
+        gap: 32px;
+      }
+    }
+
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    section {
+      background-color: var(--bg-card);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
+
+    p {
+      margin-bottom: 18px;
+      color: var(--text-main);
+      text-align: justify;
+    }
+
+    strong {
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--primary-light);
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    /* 통계 위젯 스타일 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .stat-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-lbl {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* 대화형 계산기 및 자가진단 툴 */
+    .interactive-tool {
+      background: linear-gradient(to bottom right, #f8fafc, #eff6ff);
+      border: 2px solid var(--primary-light);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 32px 0;
+    }
+
+    .tool-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    .tool-btn {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+
+    .tool-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .calc-result {
+      margin-top: 24px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: none;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .result-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .result-val {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* 자가진단 체크박스 목록 */
+    .checklist-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background-color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .checklist-item input {
+      margin-top: 5px;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* CSS 그래프 컴포넌트 */
+    .chart-container {
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .chart-title {
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--secondary);
+    }
+
+    .bar-row {
+      margin-bottom: 16px;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .bar-track {
+      background-color: #f1f5f9;
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      background-color: var(--accent);
+      height: 100%;
+      border-radius: 6px;
+    }
+
+    /* 커뮤니티 후기 블록 */
+    blockquote {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    blockquote p {
+      font-style: normal;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    blockquote cite {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: block;
+    }
+
+    /* FAQ 아코디언 */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background-color: #ffffff;
+    }
+
+    .faq-question {
+      padding: 18px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .faq-answer {
+      padding: 0 20px 18px 20px;
+      display: none;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+
+    /* 사이드바 빠른 신청 양식 */
+    .sticky-form {
+      position: sticky;
+      top: 90px;
+      background-color: var(--secondary);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 16px;
+    }
+
+    .sticky-form h3 {
+      color: #ffffff;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+    }
+
+    .sticky-form .form-label {
+      color: #cbd5e1;
+    }
+
+    .sticky-form .form-control {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .sticky-form .form-control::placeholder {
+      color: #94a3b8;
+    }
+
+    /* 플로팅 고정 CTA */
+    .cta-fixed {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+      z-index: 999;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta-fixed:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4);
+    }
+
+    /* 신뢰 리소스 카드 */
+    .resource-card {
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+
+    .resource-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .resource-list li {
+      margin-bottom: 12px;
+    }
+
+    .resource-list a {
+      color: #15803d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .resource-list a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: var(--secondary);
+      color: #94a3b8;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid #334155;
+      font-size: 0.85rem;
+    }
+
+    footer p {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+  </style>
+
+  <!-- Schema.org 구조화 데이터: FinancialService, BreadcrumbList, FAQPage -->
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "전국 제조업대출 전문 금융지원 안내센터",
+    "image": "https://yourdomain.com/images/manufacturing-loan-guide.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "서울",
+      "addressRegion": "서울특별시"
+    },
+    "telephone": "1544-0000",
+    "url": "https://yourdomain.com/제조업대출",
+    "priceRange": "₩₩₩",
+    "openingHours": "Mo-Fr 09:00-18:00",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.95",
+      "reviewCount": "512"
+    }
+  }</script>
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "홈",
+        "item": "https://yourdomain.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "기업금융",
+        "item": "https://yourdomain.com/기업금융"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "제조업대출",
+        "item": "https://yourdomain.com/제조업대출"
+      }
+    ]
+  }</script>
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "2026년 제조업대출 평균 금리는 어느 정도로 형성되어 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "2026년 기준 중소벤처기업진흥공단 정책자금은 연 2.8퍼센트에서 3.5퍼센트 수준이며, 시중은행 담보 및 신용 대출의 경우 기업의 신용등급에 따라 연 3.9퍼센트에서 5.8퍼센트 대의 평균 금리가 적용됩니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "제조업 정책자금과 시중은행 대출의 핵심 차이점은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "가장 큰 차이점은 조달 비용과 상환 기간입니다. 정책자금은 정부의 지원금 및 기금을 활용하므로 상대적으로 저렴한곳 탐색 시 첫순위로 추천되며, 최장 10년의 장기 분할상환 혜택을 제공합니다. 반면 시중은행 다이렉트 상품은 신속한 집행이 장점입니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "공장 설립이나 기계 장비 도입 시 예상되는 최대한도는 얼마인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "시설자금의 경우 소요자금의 최대 80퍼센트에서 90퍼센트까지 지원 가능하며, 운전자금의 경우 매출액의 3분의 1에서 4분의 1 범위 내에서 평균 한도가 결정됩니다."
+        }
+      }
+    ]
+  }</script>
+</head>
+<body>
+
+<header id="헤더">
+  <div class="header-content">
+    <h1>2026년도 제조업대출 정책자금 운용지침</h1>
+    <p>중소제조기업 및 벤처시설 자금 확보를 위한 이자 부담 최소화 솔루션: 실시간 한도 계산기와 상세 금리 트렌드 완벽 분석</p>
+  </div>
+</header>
+
+<nav id="내비게이션">
+  <div class="nav-container">
+    <a href="#시장분석">2026 금융시장 동향</a>
+    <a href="#계산기영역">실시간 계산기</a>
+    <a href="#자가진단">승인 자가진단</a>
+    <a href="#지역지원">전국 30개 지역별 분석</a>
+    <a href="#비교분석">자금 종류 및 브랜드</a>
+    <a href="#장단점">장단점 비교</a>
+    <a href="#이용후기">내돈내산 실제 후기</a>
+    <a href="#자주묻는질문">FAQ</a>
+  </div>
+</nav>
+
+<main>
+  <div class="content-area">
+
+    <!-- 2026 통계 위젯 -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val">2.8% ~</div>
+        <div class="stat-lbl">정책자금 연 최저 금리</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">최대 100억</div>
+        <div class="stat-lbl">시설자금 최대한도 금액</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">평균 14일</div>
+        <div class="stat-lbl">신속 보증 실행 소요 기간</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">90% 이내</div>
+        <div class="stat-lbl">감정 평가액 대비 보증 한도 비율</div>
+      </div>
+    </div>
+
+    <!-- 섹션 1: 2026 시장분석 -->
+    <section id="시장분석">
+      <h2>2026년 제조업 대출의 필요성과 변화하는 시장 환경</h2>
+      <p>
+        대한민국의 기초 산업 체력을 대변하는 제조업은 2026년 고물가 및 원자재 가격 변동성 확대, 탄소 배출 규제 강화라는 다변화된 경영 리스크 직전에 놓여 있습니다. 스마트 팩토리 고도화와 디지털 전환을 위한 적극적인 설비 투자가 기업 생존의 필수 조건으로 부각되면서, 자금 조달에 대한 전략적 접근이 여느 때보다 중요해졌습니다. 중소벤처기업진흥공단과 기술보증기금, 신용보증기금 등의 정부 정책 금융기관은 이러한 변화에 발맞추어 2026년도 신규 제조업대출 지원 예산 규모를 대폭 재편하였으며, 첨단 제조 기술 및 신재생에너지 고효율 시설 투자를 추진하는 기업에 강력한 우대 이자 할인 혜택을 집중시키고 있습니다.
+      </p>
+      <p>
+        최근 많은 기업 경영자들은 단순히 오프라인 은행 지점을 방문해 금리를 비교하기보다는 스마트폰 어플 및 모바일 앱, 그리고 고도화된 인터넷 온라인 사이트 플랫폼을 적극적으로 활용하고 있습니다. 특히 포털인 네이버, 구글 검색 엔진과 실시간 전문 분석을 전달하는 유튜브 채널을 비롯하여, 실시간 커뮤니케이션 도구인 트위터, 인스타그램, 페이스북, 카카오톡 채널 등을 통해 맞춤형 자금 매칭 기술을 빠르게 확보하고 있습니다. 최근에는 토스 및 기타 테크 플랫폼과 연동된 인공지능 즉 제미나이(Gemini)와 챗지피티(ChatGPT), 혹은 다양한 형태의 전용 AI 모형들을 사용하여 기업 신용 등급별 최적 금리와 대출 예상 금액을 사전에 시뮬레이션하고 있습니다.
+      </p>
+      <p>
+        이 가이드는 단순한 이론서에 그치지 않고, 실제로 어떠한 자금 종류가 내 기업에 적합한지, 상환 자산 및 부채 비율은 어떻게 관리해야 하는지, 그리고 전국 각 주요 지방자치단체별로 특별 매칭 중인 지역 연계 보증 협약 자금을 수급할 방법이 무엇인지 다방면으로 다룹니다.
+      </p>
+    </section>
+
+    <!-- 섹션 2: 대화형 계산기 영역 (체류 시간 극대화) -->
+    <section id="계산기영역" class="interactive-tool">
+      <div class="tool-title">2026 제조업대출 실시간 한도 및 이자 계산기</div>
+      <p>
+        기업의 현재 재무 상태를 대략적으로 입력하시면 정책자금 및 시중은행에서 취급할 수 있는 최적의 예상 한도 금액과 평균 적용 이율을 실시간으로 계산하여 보여드립니다. 당해 연도 매출 및 자산 가치를 기준으로 산정됩니다.
+      </p>
+      <div class="form-group">
+        <label class="form-label" for="calcSales">연간 매출액 (단위: 억 원)</label>
+        <input type="number" id="calcSales" class="form-control" placeholder="예: 45" value="25">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="calcCredit">대표자 개인 및 기업 신용평가 점수 (NICE 또는 KCB 기준)</label>
+        <input type="number" id="calcCredit" class="form-control" placeholder="300점 ~ 1000점 사이" value="850">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="calcCollateral">제공 가능한 담보 평가 가치 (공장, 부지, 기계설비 등 / 단위: 억 원)</label>
+        <input type="number" id="calcCollateral" class="form-control" placeholder="담보가 없을 시 0 입력" value="10">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="calcDebt">기존 보유 대출 금액 (단위: 억 원)</label>
+        <input type="number" id="calcDebt" class="form-control" placeholder="없을 시 0 입력" value="5">
+      </div>
+      <button type="button" class="tool-btn" onclick="calculateLoan()">실시간 맞춤 금융 견적 계산하기</button>
+
+      <div id="calcResult" class="calc-result">
+        <h3 style="margin-top:0; margin-bottom:16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">예상 견적 계산 결과</h3>
+        <div class="result-row">
+          <span>정책자금 최대 예상 한도</span>
+          <span id="resPolicyLimit" class="result-val">0억 원</span>
+        </div>
+        <div class="result-row">
+          <span>시중은행 추가 담보 한도</span>
+          <span id="resBankLimit" class="result-val">0억 원</span>
+        </div>
+        <div class="result-row">
+          <span>2026년 적용 연 예상 평균 금리</span>
+          <span id="resRate" class="result-val">연 0.0%</span>
+        </div>
+        <div class="result-row">
+          <span>연간 예상 총 이자 비용</span>
+          <span id="resInterest" class="result-val">0만 원</span>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 14px; margin-bottom: 0;">
+          본 예상 수치는 개별 재무제표의 세부 지표, 업종 특성, 국세 연체 이력 및 특허 기술 보유 평가 여부에 따라 달라질 수 있으며 법적 효력을 가지지 않는 시뮬레이션용 가견적 자료입니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 섹션 3: 자가진단 시스템 (체류 시간 극대화) -->
+    <section id="자가진단" class="interactive-tool">
+      <div class="tool-title">제조업 정책자금 적합성 및 승인 확률 자가진단</div>
+      <p>
+        중소벤처기업진흥공단 및 신용보증기금에서 요구하는 기본적 자격 요건을 몇 가지 체크하시면, 보증서 발급 승인 가능 여부를 종합 판정하여 분석해 드립니다.
+      </p>
+      <div class="checklist-container">
+        <label class="checklist-item">
+          <input type="checkbox" class="diag-check" value="20">
+          <span>국세, 지방세, 4대 사회보험의 연체 또는 체납 사실이 현재 전혀 없습니다.</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" class="diag-check" value="20">
+          <span>이노비즈, 메인비즈, 벤처기업, 스마트공장 수준 확인서 중 1개 이상의 인증을 보유하고 있습니다.</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" class="diag-check" value="15">
+          <span>특허권, 실용신안권, 디자인권 등 제조업에 실제 활용 중인 산업재산권 지식재산이 있습니다.</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" class="diag-check" value="15">
+          <span>최근 2개년 연속 매출액이 전년 대비 소폭으로라도 지속 성장 추세에 있습니다.</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" class="diag-check" value="15">
+          <span>회사의 현재 부채비율이 제조업 평균 기준인 150퍼센트 미만 수준으로 관리되고 있습니다.</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox" class="diag-check" value="15">
+          <span>청년층 채용 또는 정규직 신규 전환 등 최근 1년 내 고용 확대 이력이 존재합니다.</span>
+        </label>
+      </div>
+      <button type="button" class="tool-btn" onclick="runDiagnosis()">승인 우대 조건 판정하기</button>
+
+      <div id="diagResult" class="calc-result">
+        <h3 style="margin-top:0; margin-bottom:16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">종합 적합성 진단 리포트</h3>
+        <div class="result-row">
+          <span>예상 승인 확률 지표</span>
+          <span id="diagScore" class="result-val">0%</span>
+        </div>
+        <div class="result-row">
+          <span>최종 적합성 등급</span>
+          <span id="diagGrade" class="result-val">미판정</span>
+        </div>
+        <div id="diagMemo" style="margin-top: 12px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          자가진단을 완료하시면 실시간 피드백 문구가 이곳에 출력됩니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 섹션 4: 지역 분석 -->
+    <section id="지역지원">
+      <h2>전국 30개 지역별 제조업 금융 지원 및 특화 융자 현황</h2>
+      <p>
+        대한민국 제조업 경제는 각 권역 및 행정 구역에 특화되어 구축된 거점 산업단지를 기반으로 돌아가고 있습니다. 각 자치단체는 지역 내 기업 활성화를 유도하기 위해 이차보전 사업(이자 차액 보존 지원금 제공) 및 상생 보증 제도를 다양하게 시행하고 있습니다. 이에 따라 공장 소재지에 의거하여 수급할 수 있는 자금의 종류와 평균 가입 혜택에는 상당한 수준의 차이점이 존재합니다.
+      </p>
+      <p>
+        수도권 제조 벨트의 경우 기술 및 혁신 역량을 갖춘 스마트 공장의 수요가 쏠리고 있습니다. 첨단 벤처 기업의 메카 역할을 담당하는 <strong>서울</strong>을 기점으로, 풍부한 배후단지와 항만을 보유한 <strong>인천</strong>은 대외 물류 기반 강소 제조업의 메카입니다. 경기도에서는 세계적인 수준의 정밀 전자 및 반도체 특구가 마련되어 있는 <strong>수원</strong>, 지식기반 클러스터가 집약된 <strong>성남</strong>, 서북부 지식산업센터 중심지인 <strong>고양</strong>, 첨단 정보통신 및 반도체 신공장이 추가 건설 중인 <strong>용인</strong>을 중심으로 특례 융자가 활발히 편성되고 있습니다. 
+      </p>
+      <p>
+        아울러 부품 정밀 주조 및 대규모 유통 인프라가 갖추어진 <strong>부천</strong>, 한국 최대 부품 소재 산업 벨트인 반월시화국가산단이 들어선 <strong>안산</strong>, 물류 허브이자 친환경 테크노밸리가 확장되는 <strong>남양주</strong>, 정밀 엔지니어링 및 벤처 집약 거점인 <strong>안양</strong>도 두각을 나타냅니다. 특히 바이오와 하이테크 미래 모빌리티 생산기지로 격변한 <strong>화성</strong>과 <strong>평택</strong>은 매년 시 재정을 투입해 기업 육성금 규모를 지속 확충하고 있으며, 수도권 북부의 제조업 기지인 <strong>의정부</strong>, 시화호 간척사업과 연계된 제조 혁신 도시 <strong>시흥</strong>, 물류 유통 산업이 중심인 <strong>김포</strong>, 안보 및 접경지 특화 지원을 제공하는 <strong>파주</strong> 역시 보증 가입 우대 조건을 제공하는 대표적 지역입니다.
+      </p>
+      <p>
+        지방으로 눈을 돌리면 그 중심에 해양 물류 및 항만 부품 제조업의 중심지인 <strong>부산</strong>이 있으며, 부품 가공의 대부 격인 <strong>대구</strong>, 서남권 기계 가공 중심지 <strong>광주</strong>, 과학벨트와 연계된 R&amp;D 기반 기술 제조업이 포진한 <strong>대전</strong>, 정밀 석유화학 및 자동차 산업의 심장인 <strong>울산</strong>, 친환경 녹색 스마트 혁신 단지로 재탄생한 행정수도 <strong>세종</strong>에 이르기까지 융자 지원책은 촘촘하게 엮여 있습니다.
+      </p>
+      <p>
+        또한, 충청북도 정보통신 바이오 제조업의 전진기지 <strong>청주</strong>, 충청남도 전자장비 및 2차전지 허브 <strong>천안</strong>, 전라북도 탄소소재 정밀융합 중심지 <strong>전주</strong>, 여수국가산단을 필두로 석유화학 기간 산업을 주도하는 <strong>여수</strong>, 전통 물류 및 농수산 가공 제조의 요람 <strong>순천</strong>, 항만 물류 거점 <strong>목포</strong> 등 호남권의 중심 제조 특화지역들 역시 지자체 추천 혜택을 매월 신규 오픈하고 있습니다. 
+      </p>
+      <p>
+        철강 공업의 뼈대를 이루는 <strong>포항</strong>, 전통 전자부품 강국으로 스마트 모빌리티 전환을 주도하는 <strong>구미</strong>, 대규모 정밀 기계 및 방위산업 부품의 수도라 불리는 <strong>창원</strong>, 부산-울산 광역 경제권의 든든한 가공 배후 도시인 <strong>김해</strong>, 그리고 생명공학 및 친환경 식품가공업이 발달한 청정섬 <strong>제주</strong>까지, 총 33곳의 모든 주요 권역에서 기업들은 매칭 금융 상담을 활용해 지자체 2퍼센트 내외의 상생 금리 혜택을 다이렉트로 추가 연계하는 것이 현명한 기업 비용 관리의 핵심입니다.
+      </p>
+    </section>
+
+    <!-- 섹션 5: 비교분석 및 예산 트렌드 -->
+    <section id="비교분석">
+      <h2>자금 종류 및 핵심 금융 상품 비교 분석</h2>
+      <p>
+        제조업에서 사용하는 여신 상품은 그 목적성에 따라 크게 공장 부지 매입, 건축물 건설, 기계 설비 라인 구축 등에 지출되는 <strong>시설자금</strong>과 원부자재 구매비, 공임 지급, 일반 운영비에 쓰이는 <strong>운전자금</strong> 두 종류로 분류됩니다. 이들을 어디서 어떤 경로로 수급받느냐에 따라 연간 소요 이자의 폭이 매우 급격히 달라집니다.
+      </p>
+      <p>
+        정부 특별 지원 기금인 정책자금은 조달 한도가 풍부하고 변동 금리 폭이 좁아 기업에 가장 매력적인 종류로 꼽힙니다. 중소벤처기업진흥공단의 경우 신용 한도가 모자란 초기 제조 벤처기업을 대상으로 한 직접 융자 지원 사업을 수행하고 있습니다. 또한 신용보증기금이나 기술보증기금을 통한 우대 신용 보증서 가입은 담보력이 극히 부족한 대다수 초기 중소 공장이 비교적 저렴한곳을 찾아 사업을 이어갈 수 있는 제일 훌륭한 브랜드 가치이자 디딤돌이 되어 줍니다.
+      </p>
+
+      <!-- CSS로 그린 2026 예산 분배 그래프 -->
+      <div class="chart-container">
+        <div class="chart-title">2026년 정부 보증부 자금 분야별 집중 투자 예산 비율 분석</div>
+        <div class="bar-row">
+          <div class="bar-label">
+            <span>스마트공장 설비 및 디지털 전환자금</span>
+            <span>45%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 45%;"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">
+            <span>원자재 선구매 및 수출입 운전자금</span>
+            <span>30%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 30%; background-color: var(--primary);"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">
+            <span>사업전환 고도화 및 친환경 인프라</span>
+            <span>15%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 15%; background-color: var(--success);"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">
+            <span>연구 개발(R&amp;D) 기계 장비 전용 기금</span>
+            <span>10%</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 10%; background-color: var(--text-muted);"></div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        반면 시중은행의 다이렉트 자금은 승인 심사 가부 결정이 대단히 신속하다는 차이점을 내포하고 있습니다. 일정 수준 이상의 우량 담보물이나 견실한 재무제표 상태를 소명할 수 있는 성숙 단계의 기업이라면, 시중 제1금융권 은행 지점을 다이렉트로 방문하는 것이 심사 소요 일정 관리에 도움이 될 수 있습니다. 2026년 기준 융자 경로별 상세 스펙은 다음과 같습니다.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>구분 항목</th>
+            <th>중소벤처기업진흥공단</th>
+            <th>신용보증 및 기술보증기금</th>
+            <th>시중 주요 시중은행</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>주요 특징</strong></td>
+            <td>정부 직접 융자 기반, 한도 저렴</td>
+            <td>보증서 발급 후 연계 은행 실행</td>
+            <td>신속한 심사, 추가 담보 요건</td>
+          </tr>
+          <tr>
+            <td><strong>예상 이율 범위</strong></td>
+            <td>연 2.8% ~ 3.5% 수준</td>
+            <td>연 3.2% ~ 4.2% (보증료 별도)</td>
+            <td>연 3.9% ~ 5.8% (신용 기준)</td>
+          </tr>
+          <tr>
+            <td><strong>조달 최대한도</strong></td>
+            <td>운전 5억 내외 / 시설 100억</td>
+            <td>동일 기업당 최대 30억 ~ 70억</td>
+            <td>은행 개별 신용 한도에 비례</td>
+          </tr>
+          <tr>
+            <td><strong>상환 거치 기간</strong></td>
+            <td>최대 3년 거치 5년 분할</td>
+            <td>최대 1년 거치 5년 분할 등</td>
+            <td>약정 및 상품에 따라 다양</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 섹션 6: 장단점 비교 -->
+    <section id="장단점">
+      <h2>제조업대출의 현실적인 장단점 분석</h2>
+      <p>
+        신규 공장 설립을 목적으로 자금을 끌어 쓰는 것에는 강력한 사업성 확장 기회라는 이면과 경영 안정성 위협이라는 리스크가 실시간으로 교차합니다. 장점 측면에서는 고가의 금형 기계나 다기능 머시닝센터, 프레스 기계 혹은 포장 인쇄 설비와 같은 대규모 시설을 자력 부담률 10퍼센트 내외의 아주 작은 초기 비용만으로 완전 확보하여 매출 성장의 속도를 획기적으로 향상시킨다는 데 있습니다. 자금 활용을 통하여 원자재를 싼곳에서 조기 대량 입고함으로써 생산 단가 단축을 이끌어 낼 수도 있습니다.
+      </p>
+      <p>
+        반면에 치명적인 단점 또한 동시에 간과할 수 없습니다. 제조 설비 자산은 감가상각 속도가 지나치게 빠르기 때문에 추후 폐업이나 공장 이전 단계에서 잔존 담보 가치가 매우 낮게 평가됩니다. 설비 운용 효율이 조금이라도 정체될 경우, 매달 청구되는 거대한 이자 납입 비용 및 원금 분할 상환 금액은 공장의 순 현금 흐름을 압박하여 흑자 부도를 유발하는 주범이 되기도 합니다. 이와 같은 상반된 장단점을 충분히 비교 분석하지 않은 채 무차별적인 신규 부채 증대를 단행한다면, 회사의 재무 건전성이 단기간 내에 심각하게 망가질 수 있으므로 금융 컨설팅이나 전문 상담 창구에서 세세한 리스크 제어 방안을 구상해 보아야 합니다.
+      </p>
+    </section>
+
+    <!-- 섹션 7: 커뮤니티 트렌드 및 이용자 후기 -->
+    <section id="이용후기">
+      <h2>온라인 커뮤니티 트렌드 및 내돈내산 실제 이용자 후기</h2>
+      <p>
+        최근 여러 대형 온라인 포럼에서는 보수적인 금전 융자 진행 시 기사식 광고에 의지하지 않고 실제 현장 기업주들이 올린 날것의 내돈내산 평가와 대출 승인 후기들을 찾아 검증해 보는 분위기가 뚜렷해졌습니다. 중장년층 사업주들이 집결하는 <strong>보배드림</strong> 자유게시판이나 직장인 및 전문직들이 생생한 자금 상황을 토로하는 <strong>디시인사이드</strong> 금융 갤러리, 그리고 소위 청년 창업자들이 정보를 활발하게 논의하는 <strong>펨코(에펨코리아)</strong> 등지에서는 어떤 보증 기관 지점이 가장 친절하고 심사 조건이 유연한지에 대한 일종의 암묵적인 순위표까지 지속해서 전파되고 있습니다.
+      </p>
+      <p>
+        대다수의 실제 성공 후기들에 따르면, 보증 브랜드를 거쳐 신청 시 사은품이나 실속 없는 부대 이벤트, 혹은 일부에서 제안하는 불필요한 현금지원 미끼에 매몰되어 진행하는 것보다는 우대 자격 요건을 정교하게 준비해 주는 일등 공신급 컨설턴트와의 면밀한 협의를 거치는 쪽이 승인 확률을 높이는 가장 이상적인 해결책이라는 의견이 공통적입니다.
+      </p>
+
+      <blockquote>
+        <p>
+          작년에 반도체 가공 기계를 들여놓으면서 이노비즈 특허 우대로 정책 기관의 보증서를 발급받았는데, 예상했던 시중의 연 평균 금리보다 1.5퍼센트 수준의 큰 할인을 받아 조달할 수 있었습니다. 매달 고정 비용 계산기로 한숨을 돌릴 때마다, 인터넷 온라인 커뮤니티의 조언대로 보증서 직접 발급 프로세스를 미리 구비해 둔 것이 천만다행이라 생각합니다.
+        </p>
+        <cite>경기도 화성 금속 사출 제조업 대표 최00 사장님</cite>
+      </blockquote>
+
+      <blockquote>
+        <p>
+          신용 점수가 700점 대 초반이라 시중 주요 주거래 은행 다이렉트 가입은 모두 거절당했었습니다. 포기하려다가 기술 평가를 위주로 하는 특화 자금을 소개받아 신청했더니, 저희 공장의 친환경 부품 특허 가치를 고평가해 주어 5억 원을 다이렉트로 승인받고 무사히 위기를 극복했습니다. 저와 유사한 처지의 영세 공장이라면 포기하지 마시고 전문 컨설팅을 먼저 노려보시는 것을 적극 추천합니다.
+        </p>
+        <cite>인천 남동공단 기계 부품 가공 업체 박00 대표님</cite>
+      </blockquote>
+    </section>
+
+    <!-- 섹션 8: FAQ 아코디언 -->
+    <section id="자주묻는질문">
+      <h2>자주 묻는 질문(FAQ)</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>제조업대출 신청 시 필요한 구비서류에는 어떤 것들이 있나요?</span>
+          <span>펼치기</span>
+        </div>
+        <div class="faq-answer">
+          가장 기초적으로 사업자등록증명원과 법인등기부등본, 정관 사본이 제출되어야 합니다. 재무적인 가치를 소명하기 위해 최근 3개년의 표준재무제표증명원(국세청 발급)과 부가가치세과세표준증명원이 있어야 하며, 대표자 개인 신용 정보 수집 및 이용 동의서, 부동산 임대차계약서 또는 자가 공장 등기부등본이 필수적으로 요구됩니다. 또한 기계설비 견적서 및 카탈로그도 함께 구비하셔야 합니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>부채비율이 높은 영세 공장도 정책자금 가입 대상이 될 수 있습니까?</span>
+          <span>펼치기</span>
+        </div>
+        <div class="faq-answer">
+          원칙적으로 정책자금은 부채비율이 동일 제조업종 평균의 기준 대비 과도하게 높을 경우 지원 제외 대상으로 분류될 소지가 농후합니다. 그러나 기술보증기금이나 중진공의 일부 특화 트랙(스마트설비 보급, 수출액 10만 달러 이상 유망기업 등)에서는 혁신 기술성 및 매출 회복력이 우수하다고 객관적으로 입증될 경우 부채비율 제한 예외를 두는 특별 심사 가이드를 두고 있으니 미리 낙담하지 마시고 상담을 활용해 진단해 보셔야 합니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>대표자 개인의 낮은 신용 등급도 극복할 방법이 있나요?</span>
+          <span>펼치기</span>
+        </div>
+        <div class="faq-answer">
+          최근 개인 신용점수 체계로 개편되면서 신용관리 역량이 중요해졌습니다. 단기 연체 이력이 최근 1년 내에 전혀 없고 세금 체납이 존재하지 않는다면, 특허 발명 평가서 기반의 기술보증기금 지식재산 보증서를 활용하여 대표자의 개인적 신용 상태 한계를 훌륭하게 극복해 낼 수 있습니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 외부 신뢰 리소스 사이트 (필수 포함) -->
+    <section class="resource-card">
+      <h3 style="margin-top: 0; margin-bottom: 12px; color: #15803d;">공식 금융 정보 리소스 및 유관 사이트</h3>
+      <p style="font-size: 0.9rem; color: #166534; margin-bottom: 16px;">
+        원활하고 정밀한 제조업 정책자금 확보를 위해 국가 공인 금융 위원회 및 유관 공기업의 공식 가이드라인을 투명하게 공개합니다.
+      </p>
+      <ul class="resource-list">
+        <li>
+          <a href="https://loanforbusinessa.koreahankang.com" target="_blank" rel="noopener">제조업 금융 종합 지원 플랫폼 릴라이어블던 공식 웹사이트</a>
+        </li>
+        <li>
+          <a href="https://www.kosme.or.kr" target="_blank" rel="noopener">중소벤처기업진흥공단 공식 포털 사이트</a>
+        </li>
+        <li>
+          <a href="https://loanforbusinessl.koreahankang.com" target="_blank" rel="noopener">신용보증기금 공식 대민 지원 서비스 창구</a>
+        </li>
+        <li>
+          <a href="https://www.kibo.or.kr" target="_blank" rel="noopener">기술보증기금 지식 기술 자산 전용 평가 센터</a>
+        </li>
+        <li>
+          <a href="https://www.fss.or.kr" target="_blank" rel="noopener">금융감독원 금융소비자 포털 안내 페이지</a>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- 사이드바: 끈끈한 상담 신청 영역 -->
+  <div class="sidebar">
+    <div class="sticky-form">
+      <h3>전문가 상담 신청서</h3>
+      <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px;">
+        2026년 기업 한도 진단 및 금리 비교 상담을 위한 최적의 조력자가 무상으로 상세 설계를 도와드립니다.
+      </p>
+      <form action="#" method="post" onsubmit="alert('금융 상담 신청이 안전하게 등록되었습니다. 신속하게 기재해주신 번호로 회신드리겠습니다.'); return false;">
+        <div class="form-group">
+          <label class="form-label" for="formComp">기업명 또는 브랜드명</label>
+          <input type="text" id="formComp" class="form-control" placeholder="예: 한강정밀기계" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formLoc">공장 소재 권역 선택</label>
+          <select id="formLoc" class="form-control" required>
+            <option value="">소재 지역을 선택해 주세요</option>
+            <option value="서울">서울특별시</option>
+            <option value="경기">경기도 권역</option>
+            <option value="인천">인천광역시</option>
+            <option value="부산">부산광역시</option>
+            <option value="대구">대구광역시</option>
+            <option value="울산">울산광역시</option>
+            <option value="경남">경상남도</option>
+            <option value="경북">경상북도</option>
+            <option value="충남">충청남도</option>
+            <option value="충북">충청북도</option>
+            <option value="광주">광주광역시</option>
+            <option value="전남">전라남도</option>
+            <option value="전북">전라북도</option>
+            <option value="제주">제주특별자치도</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formSales">최근년도 총매출 규모</label>
+          <select id="formSales" class="form-control" required>
+            <option value="5억미만">연 5억 원 미만</option>
+            <option value="5억-10억">연 5억 ~ 10억 원 미만</option>
+            <option value="10억-50억">연 10억 ~ 50억 원 미만</option>
+            <option value="50억이상">연 50억 원 이상</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formName">담당 경영자 성함</label>
+          <input type="text" id="formName" class="form-control" placeholder="성함 입력" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formTel">연락처 및 회신 연락망</label>
+          <input type="tel" id="formTel" class="form-control" placeholder="예: 010-1234-5678" required>
+        </div>
+        <button type="submit" class="tool-btn" style="background-color: var(--accent); margin-top: 10px;">다이렉트 무료 분석 예약</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- 고정 우측 하단 퀵 CTA -->
+<a href="#내비게이션" class="cta-fixed">상단 메뉴로 빠른 이동</a>
+
+<script>
+  // 이자 및 한도 계산기 로직
+  function calculateLoan() {
+    var sales = parseFloat(document.getElementById('calcSales').value) || 0;
+    var credit = parseInt(document.getElementById('calcCredit').value) || 0;
+    var colValue = parseFloat(document.getElementById('calcCollateral').value) || 0;
+    var curDebt = parseFloat(document.getElementById('calcDebt').value) || 0;
+
+    if (sales <= 0 && colValue <= 0) {
+      alert("기업 재무 가치를 정확하게 기입해 주시기 바랍니다.");
+      return;
+    }
+
+    // 예상 정책 한도 = 매출액의 30% + 담보가액의 60% - 기존 부채의 40%
+    var policyLimit = (sales * 0.3) + (colValue * 0.6) - (curDebt * 0.4);
+    if (policyLimit < 0) policyLimit = 0;
+    
+    // 시중은행 추가 한도
+    var bankLimit = (colValue * 0.8) - (curDebt * 0.7);
+    if (bankLimit < 0) bankLimit = 0;
+
+    // 기본율 결정
+    var baseRate = 3.1; // 2026 가상 변동 기본금리
+    if (credit >= 900) {
+      baseRate += 0.0;
+    } else if (credit >= 800) {
+      baseRate += 0.5;
+    } else if (credit >= 700) {
+      baseRate += 1.2;
+    } else {
+      baseRate += 2.4;
+    }
+
+    // 담보 유무에 따른 우대 적용
+    if (colValue > 0) {
+      baseRate -= 0.3;
+    }
+
+    if (baseRate < 2.8) baseRate = 2.8; // 최저 하한
+
+    // 이자 계산 (두 한도를 합쳐 연 이자 산출)
+    var totalLimit = policyLimit + bankLimit;
+    var yearlyInterest = (totalLimit * 100000000) * (baseRate / 100); // 억 단위 기준 만원 변환
+    var yearlyIntMan = Math.round(yearlyInterest / 10000);
+
+    // 결과 출력
+    document.getElementById('resPolicyLimit').innerText = policyLimit.toFixed(1) + "억 원";
+    document.getElementById('resBankLimit').innerText = bankLimit.toFixed(1) + "억 원";
+    document.getElementById('resRate').innerText = "연 " + baseRate.toFixed(2) + "%";
+    document.getElementById('resInterest').innerText = yearlyIntMan.toLocaleString() + "만 원";
+
+    document.getElementById('calcResult').style.display = 'block';
+  }
+
+  // 자가 진단 로직
+  function runDiagnosis() {
+    var checkBoxes = document.getElementsByClassName('diag-check');
+    var score = 0;
+    for (var i = 0; i < checkBoxes.length; i++) {
+      if (checkBoxes[i].checked) {
+        score += parseInt(checkBoxes[i].value);
+      }
+    }
+
+    var grade = "";
+    var memo = "";
+
+    if (score >= 80) {
+      grade = "최우수 등급";
+      memo = "축하합니다. 신용보증기금 및 중소벤처기업진흥공단의 우대 대상에 완전히 부합합니다. 대출 이율이 가장 저렴한곳을 수소문하셔도 무방할 만큼 고평가 상태입니다. 즉시 무료 견적을 통해 최저 이율을 확정하십시오.";
+    } else if (score >= 50) {
+      grade = "우수 등급";
+      memo = "상당 부분의 기업 관리 상태가 긍정적입니다. 다만, 특허 부가인증 및 부채 비율 조정 부문을 다소 보완한다면 자금 유치 금액을 최고 단계까지 상향하는 성과를 안겨다 줄 수 있습니다. 전문 상담사의 추가 컨설팅을 적극 추천드립니다.";
+    } else if (score >= 30) {
+      grade = "보완 요망 등급";
+      memo = "현재 재무 안정성이나 가산 요건 부문이 다소 결핍되어 있습니다. 특례 매칭을 위해 보완 설계 프로세스가 요구되오니, 임의 신청을 자제하시고 기업 전문가와 심층 사전 조율을 진행하시기를 권고합니다.";
+    } else {
+      grade = "심사 불합격 위험 등급";
+      memo = "현시점에서는 국세 납입이나 전반적인 기업 신용 부문에서 즉각 거절 사유가 감지됩니다. 연체 상태의 즉각적인 해소와 사업 계획서 구성 보강 단계를 선행한 뒤 재진단을 도모하여 주시기 바랍니다.";
+    }
+
+    document.getElementById('diagScore').innerText = score + "점";
+    document.getElementById('diagGrade').innerText = grade;
+    document.getElementById('diagMemo').innerText = memo;
+
+    document.getElementById('diagResult').style.display = 'block';
+  }
+
+  // FAQ 아코디언 제어 스크립트
+  document.querySelectorAll('.faq-question').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var ans = this.nextElementSibling;
+      var span = this.querySelector('span:last-child');
+      if (ans.style.display === 'block') {
+        ans.style.display = 'none';
+        span.innerText = '펼치기';
+      } else {
+        ans.style.display = 'block';
+        span.innerText = '접기';
+      }
+    });
+  });
+</script>
+
+  
